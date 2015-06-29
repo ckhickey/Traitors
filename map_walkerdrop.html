@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Walker Leaflet Map</title>
+	<meta charset="utf-8" />
+	<meta name="walker-map" content="width=device-width, initial-scale=1.0">
+	<script src="http://cdn.leafletjs.com/leaflet-0.6.2/leaflet.js"></script>
+
+<script src="http://media.hamptonroads.com/media/content/pilotonline/2013/walker/leaflet_numbered_markers.js"></script>
+
+	<!-- load the default leaflet css -->
+	<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.6.2/leaflet.css">
+	
+	<!-- make sure that everything works in Internet Explorer using a special stylesheet -->
+	 <!--[if lte IE 8]>
+	     <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.5/leaflet.ie.css" />
+	 <![endif]-->
+	
+	<style type="text/css" media="screen">
+	
+	.leaflet-fade-anim .leaflet-popup {
+		
+		opacity: 0;
+		-webkit-transition: opacity 0.7s linear;
+		   -moz-transition: opacity 0.7s linear;
+		     -o-transition: opacity 0.7s linear;
+		        transition: opacity 0.7s linear;
+		}
+		
+	.leaflet-popup-tip-container {
+		margin: 0 auto;
+		width: 400px;
+		height: 20px;
+		position: relative;
+		overflow: hidden;
+		}
+		
+	.leaflet-popup-content-wrapper {
+		background-color: #fffef2;
+		border: groove 2px #ffffff;
+	}		
+	
+	/* number markers csss */
+	.leaflet-div-icon {
+	background: transparent;
+	border: none;
+}
+ 
+.leaflet-marker-icon .number{
+	position: relative;
+	top: -37px;
+	font-size: 12px;
+	width: 25px;
+	text-align: center;
+}
+	
+	
+	
+	</style>
+	
+	<script type="text/javascript" src="http://maps.stamen.com/js/tile.stamen.js?v1.2.2"></script>
+	<script type="text/javascript" charset="utf-8" async defer>
+		function initialize() {
+			var layers = ["toner"];
+			for (var i = 0; i < layers.length; i++) {
+				var layer = layers[i];
+				var map = new L.Map(layer, {
+					center: new L.LatLng(39.103956, -77.277145),
+					zoom: 9	
+				});
+				
+				//Markers
+				/*
+				var marker = L.marker([39.067814,-77.202516]).addTo(map);
+				marker.bindPopup("<p><b>Walker's Hotel</b></p><p>This location of Walker's hotel, which is now a Best Western Plus in Rockville, Md.</p>");
+				*/
+				
+				
+				
+				
+				
+/* Don't need
+			
+				//Circles
+				var circle = L.circle([36.87, -76.29], 1100, {
+					color: '#7f0019',
+					fillColor: '#FF4C70',
+					fillOpacity: 0.8
+				}).addTo(map);
+				circle.bindPopup("<b>I'm a circle!<br><br>And<br><br>This<br><br>Is<br><br>A<br><br>Test.</b>");
+				
+				var circle2 = L.circle([36.9, -76.19], 900, {
+					color: '#7f0019',
+					fillColor: '#FF4C70',
+					fillOpacity: 0.8
+				}).addTo(map);
+				circle2.bindPopup("<b>I'm a circle! And here's a picture:</b><br><img src='testimg.jpg' style='width: 200px;'>");
+				
+				//Polygons
+				var polygon = L.polygon([
+					[36.87, -76.5],
+					[36.82, -76.52],
+					[36.87, -76.55]
+					]).addTo(map);
+					polygon.bindPopup("<b>I'm a polygon!</b>");
+*/	
+				//Popups
+				var popup = L.popup();
+				
+				function onMapClick(e) {
+					popup
+						.setLatLng(e.latlng)
+						/*.setContent("You clicked the map at " + e.latlng.toString()) 
+						.openOn(map);*/
+				}
+				
+				map.on('click', onMapClick);
+				
+				
+				
+				
+				map.addLayer(new L.StamenTileLayer(layer));
+			}
+		}
+		
+		//Marker with numbers
+		var marker = new L.Marker(new L.LatLng(39.067814,-77.202516), {
+    icon:	new L.NumberedDivIcon({number: '1'})
+});
+		
+		
+		
+
+	</script>
+	<style type="text/css" media="screen">
+		
+		.map{
+			width: 960px;
+			height: 500px;
+			margin: 0 0 1em 0;
+		}
+		
+	</style>
+
+</head>
+
+<body onload="initialize()">
+	<div id="toner" class="map leaflet-container leaflet-fade-anim" tabindex="0" style="position: relative;">
+		
+				
+	
+	
+	
+	
+	
+</body>
+</html>

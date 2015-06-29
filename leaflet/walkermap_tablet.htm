@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Walker Leaflet Map</title>
+	<meta charset="utf-8" />
+	<meta name="walker-map" content="width=device-width, initial-scale=1.0">
+	<script src="http://media.hamptonroads.com/media/content/pilotonline/2013/walker/leaflet/leaflet.js"></script>
+	<script src="http://media.hamptonroads.com/media/content/pilotonline/2013/walker/leaflet/leaflet-src.js"></script>
+	
+	<script	src="http://media.hamptonroads.com/media/content/pilotonline/2013/walker/Label.js"></script>
+	<script	src="http://media.hamptonroads.com/media/content/pilotonline/2013/walker/Marker.Label.js"></script>
+	<script	src="http://media.hamptonroads.com/media/content/pilotonline/2013/walker/Path.Label.js"></script>
+	<script	src="http://media.hamptonroads.com/media/content/pilotonline/2013/walker/Map.Label.js"></script>
+	<script	src="http://media.hamptonroads.com/media/content/pilotonline/2013/walker/FeatureGroup.Label.js"></script>
+
+
+	<!-- load the default leaflet css -->
+	<link rel="stylesheet" href="http://media.hamptonroads.com/media/content/pilotonline/2013/walker/leaflet/leaflet.css">
+	
+	<!-- make sure that everything works in Internet Explorer using a special stylesheet -->
+	 <!--[if lte IE 8]>
+	     <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.6.2/leaflet.ie.css" />
+	 <![endif]-->
+	 <link rel="stylesheet" href="http://media.hamptonroads.com/media/content/pilotonline/2013/walker/leaflet.label.css" />
+	<style type="text/css">
+<!--
+
+		body{
+		width:910px;
+		height:430px;
+		}
+		
+.leaflet-fade-anim .leaflet-popup {
+		
+		opacity: 0;
+		-webkit-transition: opacity 0.7s linear;
+		   -moz-transition: opacity 0.7s linear;
+		     -o-transition: opacity 0.7s linear;
+		        transition: opacity 0.7s linear;
+		}
+		
+	.leaflet-popup-tip-container {
+		margin: 0 auto;
+		width: 370px;
+		height: 20px;
+		position: relative;
+		overflow: hidden;
+		}
+		
+	.leaflet-popup-content-wrapper {
+		background-color: #fff;
+		height: 370px;
+		overflow: auto;
+	}	
+	
+	.leaflet-popup-content {
+	padding-left: 5px;
+	
+	}	
+	
+	.leaflet-popup-content .date{
+		text-align: center;
+		font-size: 18px;
+		color: #000;
+		opacity: 0.9;
+		  text-shadow:
+		   -1px -1px 0 #FFF,  
+		    1px -1px 0 #FFF,
+		    -1px 1px 0 #FFF,
+		     1px 1px 0 #FFF; 
+	}
+	
+	.leaflet-label-overlay {
+  	 color: #000;
+		 font-weight:700;
+     opacity: 1;
+     text-shadow:
+     -1px -1px 0 #FFF,  
+      1px -1px 0 #FFF,
+     -1px 1px 0 #FFF,
+      1px 1px 0 #FFF;
+  	 line-height:0px;
+     margin-top: 9px;
+     position: absolute; 
+	}
+		 
+		 .leaflet-label-overlay .finalLab{
+		 width: 60px;
+	}
+	
+	.leaflet-popup-content .live{
+		color: #fffef2;
+		
+	}	
+	
+	.leaflet-popup-content .mappix, .leaflet-popup-content .notlive{
+		width: 300px;
+	}
+	
+	.leaflet-popup-content .notLiveText{
+	font-size: 25px;
+	}
+	
+	.leaflet-popup-content .mappix2{
+		height: 147px;
+	}
+		
+-->
+</style>
+
+	
+	
+	<script type="text/javascript" src="http://maps.stamen.com/js/tile.stamen.js?v1.2.2"></script>
+	<script type="text/javascript" charset="utf-8" async defer>
+
+		//Boots up the map.
+		
+		function initialize() {
+			var layers = ["toner"];
+			for (var i = 0; i < layers.length; i++) {
+				var layer = layers[i];
+				var map = new L.Map(layer, {
+					center: new L.LatLng(36.86, -76.19),
+					zoom:11,
+					scrollWheelZoom: false
+				});
+		
+		//Re-centers the map after closing a popup window.
+				
+		map.on('popupclose', function(e) {
+    console.log("hello");
+    map.setView(new L.LatLng(36.86, -76.19), 11);
+		});
+		
+		//Extension to make static labels for polygons and circles
+
+      L.LabelOverlay = L.Class.extend({
+              initialize: function(/*LatLng*/ latLng, /*String*/ label, options) {
+                  this._latlng = latLng;
+                  this._label = label;
+                  L.Util.setOptions(this, options);
+          },
+          options: {
+                  offset: new L.Point(0, 13)
+          },
+          onAdd: function(map) {
+                  this._map = map;
+                  if (!this._container) {
+                          this._initLayout();
+                  }
+                  map.getPanes().overlayPane.appendChild(this._container);
+                  this._container.innerHTML = this._label;
+                  map.on('viewreset', this._reset, this);
+                  this._reset();
+          },
+          onRemove: function(map) {
+                  map.getPanes().overlayPane.removeChild(this._container);
+                  map.off('viewreset', this._reset, this);
+          },
+          _reset: function() {
+                  var pos = this._map.latLngToLayerPoint(this._latlng);
+                  var op = new L.Point(pos.x + this.options.offset.x, pos.y - this.options.offset.y);
+                  L.DomUtil.setPosition(this._container, op);
+          },
+          _initLayout: function() {
+                  this._container = L.DomUtil.create('div', 'leaflet-label-overlay');
+          }
+      });
+			
+				//Used to display labels for polygons and circles
+
+       var labelLocation = new L.LatLng(36.928, -76.317);
+        var labelTitle = new L.LabelOverlay(labelLocation, '1967');
+        map.addLayer(labelTitle);
+				
+				var labelLocation = new L.LatLng(36.9, -76.31);
+        var labelTitle = new L.LabelOverlay(labelLocation, '1968');
+        map.addLayer(labelTitle);
+				
+				var labelLocation = new L.LatLng(36.92, -76.24507);
+        var labelTitle = new L.LabelOverlay(labelLocation, '1974');
+        map.addLayer(labelTitle);
+				
+				var labelLocation = new L.LatLng(36.925, -76.21584);
+        var labelTitle = new L.LabelOverlay(labelLocation, '1974');
+        map.addLayer(labelTitle);
+				
+				var labelLocation = new L.LatLng(36.82, -76.166);
+        var labelTitle = new L.LabelOverlay(labelLocation, '1976');
+        map.addLayer(labelTitle);
+				
+				var labelLocation = new L.LatLng(36.904, -76.24222);
+        var labelTitle = new L.LabelOverlay(labelLocation, '1979');
+        map.addLayer(labelTitle);
+				
+				var labelLocation = new L.LatLng(36.86, -76.17815);
+        var labelTitle = new L.LabelOverlay(labelLocation, '1980');
+        map.addLayer(labelTitle);
+				
+				var labelLocation = new L.LatLng(36.756, -76.25133);
+        var labelTitle = new L.LabelOverlay(labelLocation, '1981');
+        map.addLayer(labelTitle);
+				
+				var labelLocation = new L.LatLng(36.776, -76.25722);
+        var labelTitle = new L.LabelOverlay(labelLocation, '1982');
+        map.addLayer(labelTitle);
+				
+				var labelLocation = new L.LatLng(36.855, -76.29073);
+        var labelTitle = new L.LabelOverlay(labelLocation, '1983');
+        map.addLayer(labelTitle);
+				
+				var labelLocation = new L.LatLng(36.80296, -76.045);
+        var labelTitle = new L.LabelOverlay(labelLocation, '1983');
+        map.addLayer(labelTitle);		
+			
+				var labelLocation = new L.LatLng(36.83, -76.15879);
+        var labelTitle = new L.LabelOverlay(labelLocation, '1985');
+        map.addLayer(labelTitle);
+				
+				var labelLocation = new L.LatLng(36.92, -76.293);
+        var labelTitle = new L.LabelOverlay(labelLocation, '<p class="finalLab">May 1985');
+        map.addLayer(labelTitle);
+	
+				//Circles
+				var circleApt = L.circle([36.91064, -76.29998], 600, {
+					color: '#7f0019',
+					fillColor: '#FF4C70',
+					fillOpacity: 0.8
+				})
+				circleApt.bindPopup("<b class='date'>1968</b><br><br>Shortly after he begins spying, John Walker moves his family from South Carolina to the ritzy Algonquin House apartments.<br><br><b>Address:</b> 7320 Glenroie Ave., Norfolk, VA 23505<br><br><b>Still around today?</b> Yes.<br><br><img class='mappix2' src='http://media.hamptonroads.com/cache/files/images/1131781.jpg'>")
+				.addTo(map);
+				
+				
+				var circleHouse = L.circle([36.93116, -76.24507], 600, {
+					color: '#7f0019',
+					fillColor: '#FF4C70',
+					fillOpacity: 0.8
+				})
+				.addTo(map);
+				circleHouse.bindPopup("<b class='date'>1974</b><br><br>The Walker family moves to this house in the Bayview neighborhood of Norfolk.<br><br><b>Address:</b> 8524 Old Ocean View Road, Norfolk, VA 23503<br><br><b>Still around today?</b> Yes.<br><br><img class='mappix' src='http://media.hamptonroads.com/cache/files/images/1131561.jpg'>");
+				
+				var circleHotel = L.circle([36.93592, -76.21584], 600, {
+					color: '#7f0019',
+					fillColor: '#FF4C70',
+					fillOpacity: 0.8
+				})
+				.addTo(map);
+				circleHotel.bindPopup("<b class='date'>1974</b><br><br>Along with his family residence in Norfolk, John Walker maintains a room at the Beachcomber Hotel and Apartments.<br><br><b>Address:</b> 2090 E. Ocean View Ave., Norfolk, VA 23503<br><br><b>Still around today?</b> No. The site is now a condo complex called The Villas at Dolphin Beach.<br><br><img class='mappix' src='http://media.hamptonroads.com/cache/files/images/1131551.jpg'>");
+				
+				var circlePI = L.circle([36.82852, -76.16934], 600, {
+					color: '#7f0019',
+					fillColor: '#FF4C70',
+					fillOpacity: 0.8
+				})
+				.addTo(map);
+				circlePI.bindPopup("<b class='date'>1976</b><br><br>John Walker opens a private investigation business, Confidential Reports.<br><br><b>Address:</b> 405 S. Parliament Drive, Office 203, Virginia Beach, VA 23462<br><br><b>Still around today?</b> No, but the building is.<br><br><img class='mappix' src='http://media.hamptonroads.com/cache/files/images/1131571.jpg'>");
+				
+				var circleKnick = L.circle([36.91412, -76.24222], 600, {
+					color: '#7f0019',
+					fillColor: '#FF4C70',
+					fillOpacity: 0.8
+				})
+				.addTo(map);
+				circleKnick.bindPopup("<b class='date'>1979</b><br><br>John Walker tries to recruit his daughter, Laura, during a meeting at Knickerbocker's restaurant.<br><br><b>Address:</b> 975 E. Little Creek Road, Norfolk, VA 23518<br><br><b>Still around today?</b> The restaurant no longer exists. The site is now a Wawa gas station.<br><br><img class='mappix' src='http://media.hamptonroads.com/cache/files/images/1131521.jpg'>");
+				
+				var circleWaffles = L.circle([36.85244, -76.17815], 600, {
+					color: '#7f0019',
+					fillColor: '#FF4C70',
+					fillOpacity: 0.8
+				})
+				.addTo(map);
+				circleWaffles.bindPopup("<b class='date'>1980</b><br><br>In the parking lot of Charlie's Waffle Shop, John Walker first talks to his brother Arthur about helping him spy.<br><br><b>Address:</b> 448 Newtown Road, Virginia Beach, VA 23462<br><br><b>Still around today?</b> No, but the shopping center is.<br><br><img class='mappix' src='http://media.hamptonroads.com/cache/files/images/1132741.jpg'>");
+				
+				var circleVSE = L.circle([36.76662, -76.25133], 600, {
+					color: '#7f0019',
+					fillColor: '#FF4C70',
+					fillOpacity: 0.8
+				})
+				.addTo(map);
+				circleVSE.bindPopup("<b class='date'>1981</b><br><br>Arthur Walker begins working at VSE Corp. in Chesapeake, handling naval ship repairs and, eventually, stealing classified documents.<br><br><b>Address:</b> 1417 N. Battlefield Blvd., Chesapeake, VA 23320<br><br><b>Still around today?</b> VSE has since relocated.<br><br><img class='mappix2' src='http://media.hamptonroads.com/cache/files/images/1131601.jpg'>");
+				
+				var circleKmart = L.circle([36.78563, -76.25722], 600, {
+					color: '#7f0019',
+					fillColor: '#FF4C70',
+					fillOpacity: 0.8
+				})
+				.addTo(map);
+				circleKmart.bindPopup("<b class='date'>1982</b><br><br>John and Arthur Walker drive to Kmart during Arthur's lunch break and photograph classified documents in the parking lot.<br><br><b>Address:</b> 2001 S. Military Hwy., Chesapeake, VA 23320<br><br><b>Still around today?</b> Yes.<br><br><img class='mappix' src='http://media.hamptonroads.com/cache/files/images/1131511.jpg'>");
+				
+				var circleFBI = L.circle([36.84845, -76.29073], 600, {
+					color: '#7f0019',
+					fillColor: '#FF4C70',
+					fillOpacity: 0.8
+				})
+				.addTo(map);
+				circleFBI.bindPopup("<b class='date'>1983</b><br><br>Norfolk FBI agents who handled counterintelligence cases for the region had their office here, in Room 839. <br><br><b>Address:</b> 200 Granby St., Norfolk, VA 23510<br><br><b>Still around today?</b> The building is here, but the FBI office has relocated to 150 Corporate Boulevard. <br><br><img class='mappix2' src='http://media.hamptonroads.com/cache/files/images/1130801.jpg'>");
+				
+				var circleMail = L.circle([36.84030, -76.15879], 600, {
+					color: '#7f0019',
+					fillColor: '#FF4C70',
+					fillOpacity: 0.8
+				})
+				.addTo(map);
+				circleMail.bindPopup("<b class='date'>1985</b><br><br>The FBI sets up wiretapping surveillance from a rented storefront shop next to a Mail Depot, to listen in on John Walker's office and home phone lines.<br><br><b>Address:</b> 105B S. Witchduck Road, Virginia Beach, VA<br><br><b>Still around today?</b> The store is vacant now, but the strip of shops remains.<br><br><img class='mappix' src='http://media.hamptonroads.com/cache/files/images/1131531.jpg'>");
+				
+				var circleMcD = L.circle([36.92592, -76.25205], 600, {
+					color: '#7f0019',
+					fillColor: '#FF4C70',
+					fillOpacity: 0.8
+				})
+				.addTo(map);
+				circleMcD.bindPopup("<b class='date'>May 1985</b><br><br>FBI agent Robert Hunter stops at a McDonald's to get coffee and sees John Walker enjoying breakfast. His counterintelligence squad is supposed to be monitoring Walker, who has slipped past surveillance.<br><br><b>Address:</b> 8402 Tidewater Drive, Norfolk, VA 23518<br><br><b>Still around today?</b> Yes.<br><br><img class='mappix' src='http://media.hamptonroads.com/cache/files/images/1131541.jpg'>");
+				
+				
+				//Polygons
+				var polygonNavalBase = L.polygon([
+					[36.96265, -76.32528],
+					[36.90413, -76.32597],
+					[36.90378, -76.32305],
+					[36.91531, -76.32056],
+					[36.91868, -76.31061],
+					[36.91998, -76.29533],
+					[36.92519, -76.29215],
+					[36.92705, -76.28709],
+					[36.91950, -76.27370],
+					[36.93061, -76.26881],
+					[36.93137, -76.27421],
+					[36.94420, -76.27868],
+					[36.94694, -76.26760],
+					[36.95133, -76.27018],
+					[36.95360, -76.26546],
+					[36.96231, -76.26984],
+					[36.96224, -76.27215],
+					[36.95202, -76.27121],
+					[36.94749, -76.28649]
+					])
+					.addTo(map);
+					polygonNavalBase.bindPopup("<b class='date'>1967</b><br><br>John Walker begins working at Norfolk Naval Base (now Norfolk Naval Station) and starts spying, taking secret documents from Commander, Submarine Force, Atlantic Fleet.<br><br><b>Address:</b> Norfolk Naval Station, Norfolk, VA 23505<br><br><img class='mappix' src='http://media.hamptonroads.com/cache/files/images/1131591.jpg'>");
+					
+				var polygonOceana = L.polygon([
+					[36.83539, -76.04977],
+					[36.83697, -76.01466],
+					[36.80296, -76.00608],
+					[36.79224, -76.03672],
+					[36.80145, -76.06204],
+					[36.81258, -76.04951]
+					])
+					.addTo(map);
+					polygonOceana.bindPopup("<img class='notlive' src='http://media.hamptonroads.com/cache/files/images/1131791.jpg'><br><br><p class='notLiveText'><b>Come back on August 8.</b></p>");
+				
+				//Adds Stamen's tile to the map
+				
+				map.addLayer(new L.StamenTileLayer(layer))
+				
+			}
+		}
+		
+	</script>
+	<style type="text/css" media="screen">
+		
+		.map{
+			width: 100%;
+			height: 100%;
+		}
+		
+	</style>
+
+</head>
+
+<body onload="initialize()">
+	<div id="toner" class="map leaflet-container leaflet-fade-anim" tabindex="0" style="position: relative;">
+	<div class="leaflet-bottom leaflet-left" style="color:blue; font-weight: 700; font-size:10px;">
+</body>
+</html>

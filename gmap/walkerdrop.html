@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+    <style type="text/css">
+      html { height: 100% }
+      body { height: 100%; margin: 0; padding: 0 }
+	 
+      #map-canvas { height: 430px; width:910px;  }
+	 #content {
+		 font: 12px Helvetica, sans-serif; 
+border-radius: 10px 10px;  }
+ #content h2 {
+		 font: bold 16px Helvetica, sans-serif;
+		 margin: 0px;}
+		  #content em {
+		 font: italic 10px Helvetica, sans-serif;}
+
+
+	  
+    </style>
+ 
+  
+
+    <script type="text/javascript"
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAMnwm2uYvSLGSwSBcj4vJR83rrEgpQgSc&sensor=false">
+    </script>
+     <script type="text/javascript" src="http://maps.stamen.com/js/tile.stamen.js?v1.2.2"></script>
+    
+    
+    <script type="text/javascript">
+      function initialize() {
+       /*   var mapOptions = {
+        center: new google.maps.LatLng(39.097029,-77.289505),
+          zoom: 10,
+          mapTypeId: google.maps.MapTypeId.layer
+        };
+        var map = new google.maps.Map(document.getElementById("map-canvas"),
+            mapOptions);
+			*/
+			
+			
+		var layer = "toner";
+var map = new google.maps.Map(document.getElementById("map-canvas"), {
+    center: new google.maps.LatLng(39.103423,-77.287788),
+    zoom: 10,
+    mapTypeId: layer,
+	scrollwheel: false,
+mapTypeControl: false,
+ /* draggable: false,*/
+ streetViewControl: false,
+    mapTypeControlOptions: {
+        mapTypeIds: [layer]
+		
+		
+		
+    }
+});
+map.mapTypes.set(layer, new google.maps.StamenMapType(layer));
+
+
+	
+	
+	
+	
+			
+
+
+			
+	  var image = 'http://media.hamptonroads.com/media/content/pilotonline/2013/walker/gmap/icons/hotel_0star.png';
+  var myLatLng = new google.maps.LatLng(39.089424,-77.176367);
+  var hotelMarker = new google.maps.Marker({
+      position: myLatLng,
+      map: map,
+      icon: image
+  });
+
+			
+/*hotel marker*/			
+			 var contentString = '<div id="content" style="height: 350px;"><h2>Walker&rsquo;s hotel</h2><p>The hotel Walker stayed at during his final drop is now the location of a Best Western Plus in Rockville, Md.</p>'+'<img src="http://media.hamptonroads.com/media/content/pilotonline/2013/walker/gmap/images/walkershotel.jpg" /><br /><em>Google Street View</em></div>';
+
+  var infowindow = new google.maps.InfoWindow({
+      content: contentString,
+	      maxWidth: 425     
+  });
+  google.maps.event.addListener(infowindow, 'closeclick', function() 
+{
+        centermap();
+});
+ 
+function centermap()
+{
+    map.setCenter(new google.maps.LatLng(39.103423,-77.287788));
+}
+
+
+ var image = 'http://media.hamptonroads.com/media/content/pilotonline/2013/walker/gmap/icons/hotel_0star.png';
+  var myLatLng = new google.maps.LatLng(39.089424,-77.176367);
+  var hotelMarker = new google.maps.Marker({
+      position: myLatLng,
+      map: map,
+      icon: image
+  });
+
+ 
+  
+  google.maps.event.addListener(hotelMarker, 'click', function() {
+    infowindow.open(map,hotelMarker);
+
+  });
+
+
+
+/*Marker 1*/	
+			
+			 var contentString = '<div id="content" style="height: 550px;">'+
+      '<h2>DROP ONE: KGB Agent&rsquo;s First Signal</h2>'+
+      '<div id="bodyContent">'+
+      '<p>For the first step in this exchange, a KGB agent would indicate he was ready for the exchange by dropping a can near a utility pole on Watts Branch Drive near the intersection of Circle and Ridge drives.</p><p><strong>Original KGB instructions:</strong><br /><img src="http://media.hamptonroads.com/media/content/pilotonline/2013/walker/gmap/images/drop1.jpg"><br /><em>FBI evidence photo courtesy Robert W. Hunter</em></p><p><strong>Recent view of the intersection from Watts Branch Drive:</strong><br /><img src="http://media.hamptonroads.com/media/content/pilotonline/2013/walker/gmap/images/circleridgewatts.jpg"><br /><em>Google Street View</em></p>'+
+      '</div>'+
+      '</div>';
+
+  var infowindow2 = new google.maps.InfoWindow({
+      content: contentString,
+	      maxWidth: 425      
+  });
+   google.maps.event.addListener(infowindow2, 'closeclick', function() 
+{
+        centermap();
+});
+ 
+function centermap()
+{
+    map.setCenter(new google.maps.LatLng(39.103423,-77.287788));
+}
+
+ var image = 'http://media.hamptonroads.com/media/content/pilotonline/2013/walker/gmap/icons/number_1.png';
+  var myLatLng = new google.maps.LatLng(39.067447,-77.202516);
+  var Marker1 = new google.maps.Marker({
+      position: myLatLng,
+      map: map,
+      icon: image
+  });
+
+ 
+  
+  google.maps.event.addListener(Marker1, 'click', function() {
+infowindow2.open(map,Marker1);
+
+
+  });
+  
+  
+  /*Marker 2*/	
+			
+			 var contentString = '<div id="content" style="height: 575px;">'+
+      '<h2>DROP TWO: Walker&rsquo;s Signal</h2>'+
+      '<div id="bodyContent">'+
+      '<p>To signal that he was ready for the exchange, Walker was instructed to drop a can at the bottom of a utility pole on Quince Orchard Road at the intersection of Dufief Mill Road. But FBI agents took the can, tipping off the Soviets that something was wrong.</p><p><strong>Original KGB instructions:</strong><br /><img src="http://media.hamptonroads.com/media/content/pilotonline/2013/walker/gmap/images/drop2.jpg"><br /><em>FBI evidence photo courtesy Robert W. Hunter</em></p><p><strong>Recent view of the intersection from Quince Orchard Road:</strong><br ><img src="http://media.hamptonroads.com/media/content/pilotonline/2013/walker/gmap/images/quince.jpg"><br /><em>Google Street View</em></p>'+
+      '</div>'+
+      '</div>';
+
+  var infowindow3 = new google.maps.InfoWindow({
+      content: contentString,
+	      maxWidth: 425      
+  });
+ google.maps.event.addListener(infowindow3, 'closeclick', function() 
+{
+        centermap();
+});
+ 
+function centermap()
+{
+    map.setCenter(new google.maps.LatLng(39.103423,-77.287788));
+}
+
+ var image = 'http://media.hamptonroads.com/media/content/pilotonline/2013/walker/gmap/icons/number_2.png';
+  var myLatLng = new google.maps.LatLng(39.083872,-77.248564);
+  var Marker2 = new google.maps.Marker({
+      position: myLatLng,	  
+      map: map,
+      icon: image
+  });
+
+
+  
+  google.maps.event.addListener(Marker2, 'click', function() {
+    infowindow3.open(map,Marker2);
+
+  });
+  
+
+
+
+  /*Marker 3*/	
+			
+			 var contentString = '<div id="content" style="height: 580px;">'+
+      '<h2>DROP THREE: Walker&rsquo;s Delivery</h2>'+
+           '<div id="bodyContent">'+
+      '<p>Walker was instructed to drop his delivery behind a utility pole on Partnership Road near its intersection with Whites Ferry Road. He did, and FBI agents snatched it up. Walker would come back later, frantically searching for the package of documents to no avail.</p><p><strong>Original KGB instructions:</strong><br /><img src="http://media.hamptonroads.com/media/content/pilotonline/2013/walker/gmap/images/drop3.jpg"><br /><em>FBI evidence photo courtesy Robert W. Hunter</em></p><p><strong>Recent view of Whites Ferry and Partnership (right) roads:</strong><br ><img src="http://media.hamptonroads.com/media/content/pilotonline/2013/walker/gmap/images/partnership.jpg"><br /><em>Google Street View</em></p>'+
+      '</div>'+
+      '</div>';
+
+  var infowindow4 = new google.maps.InfoWindow({
+      content: contentString,
+	      maxWidth: 425, 
+		
+  });
+  
+   google.maps.event.addListener(infowindow4, 'closeclick', function() 
+{
+        centermap();
+});
+ 
+function centermap()
+{
+    map.setCenter(new google.maps.LatLng(39.103423,-77.287788));
+}
+
+ var image = 'http://media.hamptonroads.com/media/content/pilotonline/2013/walker/gmap/icons/number_3.png';
+  var myLatLng = new google.maps.LatLng(39.128329,-77.383747);
+  var Marker3 = new google.maps.Marker({
+      position: myLatLng,	  
+      map: map,
+      icon: image
+  });
+
+
+  
+  google.maps.event.addListener(Marker3, 'click', function() {
+    infowindow4.open(map,Marker3);
+
+  });
+  
+
+
+
+ /*Marker 4*/	
+			
+			 var contentString = '<div id="content"  style="height: 750px;">'+
+      '<h2>DROP FOUR: KGB Delivery</h2>'+
+       '<div id="bodyContent">'+
+      '<p>Once Walker delivered documents, a KGB agent was to deliver money behind two trees &quot;accreted&quot; at the bottom on Old Bucklodge Lane. Unable to find the money, Walker went back and forth from here to his previous drop site before going back to his hotel.</p><p><strong>Original KGB instructions:</strong><br /><img src="http://media.hamptonroads.com/media/content/pilotonline/2013/walker/gmap/images/drop4.jpg"><br /></p><p><strong>The accreted trees:</strong><br ><img src="http://media.hamptonroads.com/media/content/pilotonline/2013/walker/gmap/images/accreted.jpg"><br /><em>FBI evidence photos courtesy Robert W. Hunter</em></p>'+
+      '</div>'+
+      '</div>';
+
+  var infowindow5 = new google.maps.InfoWindow({
+      content: contentString,
+	      maxWidth: 425      
+  });
+  
+   google.maps.event.addListener(infowindow5, 'closeclick', function() 
+{
+        centermap();
+});
+ 
+function centermap()
+{
+    map.setCenter(new google.maps.LatLng(39.103423,-77.287788));
+}
+
+
+ var image = 'http://media.hamptonroads.com/media/content/pilotonline/2013/walker/gmap/icons/number_4.png';
+  var myLatLng = new google.maps.LatLng(39.165239,-77.338729);
+  var Marker4 = new google.maps.Marker({
+      position: myLatLng,
+      map: map,
+      icon: image
+  });
+
+
+  
+google.maps.event.addListener(Marker4, 'click', function() {
+    infowindow5.open(map,Marker4);
+
+
+  });
+  
+
+
+/*Marker 5*/	
+			
+			 var contentString = '<div id="content" style="height: 575px;">'+
+      '<h2>DROP FIVE: Walker&rsquo;s Final Signal (not completed)</h2>'+
+       '<div id="bodyContent">'+
+      '<p>To signal that he had picked up his money, Walker was to drop a can on Esworthy Terrace at its second (southern) intersection with Esworthy Road. The drop needed to be about a car length from the stop sign and a foot or two from the surface of the road.</p><p><strong>Original KGB instructions:</strong><br /><img src="http://media.hamptonroads.com/media/content/pilotonline/2013/walker/gmap/images/drop5.jpg"><br /><em>FBI evidence photo courtesy Robert W. Hunter</em></p><p><strong>Recent view of the southern intersection:</strong><br ><img src="http://media.hamptonroads.com/media/content/pilotonline/2013/walker/gmap/images/esworthy.jpg"><br /><em>Google Street View</em></p>'+
+      '</div>'+
+      '</div>';
+
+  var infowindow6 = new google.maps.InfoWindow({
+      content: contentString,
+	      maxWidth: 425      
+  });
+ google.maps.event.addListener(infowindow6, 'closeclick', function() 
+{
+        centermap();
+});
+ 
+function centermap()
+{
+    map.setCenter(new google.maps.LatLng(39.103423,-77.287788));
+}
+
+
+
+ var image = 'http://media.hamptonroads.com/media/content/pilotonline/2013/walker/gmap/icons/number_5.png';
+  var myLatLng = new google.maps.LatLng(39.06514,-77.283207);
+  var Marker5 = new google.maps.Marker({
+      position: myLatLng,  
+      map: map,
+      icon: image
+  });
+
+
+  
+  google.maps.event.addListener(Marker5, 'click', function() {
+    infowindow6.open(map,Marker5);
+
+  });
+  
+
+
+/*Marker 6*/	
+			
+			 var contentString = '<div id="content" style="height: 580px;">'+
+      '<h2>DROP SIX: KGB&rsquo;s Final Signal (not completed)</h2>'+
+      '<div id="bodyContent">'+
+      '<p>The KGB agent would signal Walker that he had picked up his documents by dropping a can at a large tree at the only bridge on Piney Meetinghouse Road between Glenn Road and River Road. The agent&rsquo;s instructions also included contingencies as well as directions for the full route.</p><p><strong>Original KGB instructions:</strong><br /><img src="http://media.hamptonroads.com/media/content/pilotonline/2013/walker/gmap/images/drop6.jpg"><br /><em>FBI evidence photo courtesy Robert W. Hunter</em></p><p><strong>Recent view of the bridge:</strong><br ><img src="http://media.hamptonroads.com/media/content/pilotonline/2013/walker/gmap/images/bridge.jpg"><br /><em>Google Street View</em></p>'+
+      '</div>'+
+      '</div>';
+
+  var infowindow7 = new google.maps.InfoWindow({
+      content: contentString,
+	      maxWidth: 425
+		     
+  });
+  
+   google.maps.event.addListener(infowindow7, 'closeclick', function() 
+{
+        centermap();
+});
+ 
+function centermap()
+{
+    map.setCenter(new google.maps.LatLng(39.103423,-77.287788));
+}
+
+
+
+ var image = 'http://media.hamptonroads.com/media/content/pilotonline/2013/walker/gmap/icons/number_6.png';
+  var myLatLng = new google.maps.LatLng(39.038386,-77.234917);
+  var Marker6 = new google.maps.Marker({
+      position: myLatLng,
+      map: map,
+      icon: image
+  });
+
+
+  
+google.maps.event.addListener(Marker6, 'click', function() {
+    infowindow7.open(map,Marker6);
+
+
+  });
+  
+
+
+
+  
+}
+			
+			
+			
+			
+ 
+      google.maps.event.addDomListener(window, 'load', initialize);
+	  
+
+	  
+	  
+	  
+    </script>
+  </head>
+  <body>
+    <div id="map-canvas"/>
+  </body>
+
+<!-- 
+Credits: 
+Google Maps
+Stamen maps
+Nicolas Mollet, Map Icons Collection 
+-->
+</html>
+

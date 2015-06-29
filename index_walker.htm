@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<title>Traitors: The Walker spy case</title>
+	<link rel="stylesheet" href="http://media.hamptonroads.com/media/content/pilotonline/2013/walker/style_tablet.css">
+	<style type="text/css">
+
+		body { 
+			background: #000; 
+			font-family: Helvetica Neue, Arial, sans-serif;
+			color: #fff;
+			}
+		h2 { 
+			text-align: center; 
+			}
+		div.container { 
+			width: 980px; 
+			height: 2480px; 
+			
+			margin: 0px auto; 
+			background: #222; 
+			/*border: 1px solid #444;*/
+			}
+		div.box { 
+			width: 970px; 
+			height: 620px; 
+			background: #000; 
+			float: left; 
+			margin: 5px;
+			z-index:0;
+			}
+	
+	</style>
+	
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+	
+</head>
+<body>
+	<div class="container">
+	
+	<div id="map2" class="box">
+			<h1>Walker's final, failed drop</h1>
+  		<p>On May 19, 1985, in Maryland, John Walker was instructed by the KGB to follow this route to exchange classified Navy documents for $200,000. But things didn't go as planned.<br>Click or touch the icons for a full debriefing.</p>
+					<iframe class="iframe2" scrolling="no" src="http://media.hamptonroads.com/media/content/pilotonline/2013/walker/gmap/walkerdrop.html"></iframe>
+					<div id="nav" style="z-index:999;">
+						<img class="img-swap" src="http://media.hamptonroads.com/cache/files/images/1137591.jpg" style="left:50%; margin-top: -2%;"/>
+						<h2 class="map1text" style="margin-top: -1%;"> Please swipe down to uncover where the Walker family carried out their espionage in Hampton Roads.</h2>
+					</div>	
+			</div>
+		
+		<div id="conclusion" class="box">
+			<h1>Walker's capture and disgrace</h1>
+  				<div id="endquote"><p>On May 20, 1985, John Walker was caught by FBI agents at his hotel in Rockville, Md., as he tried to escape with the Soviets' drop directions. Looking for weapons or evidence, agents removed Walker's tennis shoes, belt and - in a final humiliation - his toupee, throwing it on the hallway carpet.</p>
+  				<img src="http://media.hamptonroads.com/cache/files/images/1137101.jpg" width="660px" />
+    			</div>
+					<img id="arrow" src="http://media.hamptonroads.com/cache/files/images/1137591.jpg" style="left:50%; margin-top: -1%;" />
+					<h2 class="scrolltext" style="margin-top: -3%; margin-left: 20%;"> Continue swiping</h2>	
+      </div>
+			
+			<div id="video" class="box">
+			<h1>Hunter Video</h1>
+			<p>Hear retired FBI Special Agent Bob Hunter recall his intense encounter with John Walker before Walker's arrest.</p>
+			<div id="vid">
+  		<iframe width="640" height="360" src="//www.youtube.com/embed/PVeoKNmLmrI" frameborder="0" allowfullscreen></iframe>
+			</div>
+			<img id="arrow" src="http://media.hamptonroads.com/cache/files/images/1137591.jpg" style="left:50%; margin-top: -1%;" />
+					<h2 class="scrolltext" style="margin-top: -1%; margin-left: 20%;"> Continue swiping</h2>	
+		</div>	
+	
+		<div id="map1" class="box">
+			<h1>The spy ring in Hampton Roads</h1>
+			<p>Where John Walker and his family lived and carried out their espionage, and where the FBI tracked them.<br> Click or touch the icons for a full debriefing.</p>
+					<div class="iframe1">
+						<iframe scrolling="no" src="http://media.hamptonroads.com/media/content/pilotonline/2013/walker/leaflet/walkermap_tablet.htm"></iframe>
+					</div>
+			</div>
+	</div>
+
+	<script type="text/javascript">
+	
+		jQuery(document).ready(function(){
+		
+    		
+		
+				//This makes the magnifying glass animation work on a touch screen.
+				//$("#nav").bind('touchstart mousedown', function(){
+				// 		$('.img-swap').attr('src',"http://media.hamptonroads.com/cache/files/images/1137591.jpg");
+				//		$('.map1text').animate({opacity:1}, 700);
+						//$("#nav").css('position','relative');
+						//$("#nav").css('z-index', -1);
+				//		return false;
+				//	});
+				
+				 		
+			//});	
+				
+	</script>
+
+</body>
+</html>

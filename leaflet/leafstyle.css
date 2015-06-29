@@ -1,0 +1,71 @@
+.leaflet-fade-anim .leaflet-popup {
+		
+		opacity: 0;
+		-webkit-transition: opacity 0.7s linear;
+		   -moz-transition: opacity 0.7s linear;
+		     -o-transition: opacity 0.7s linear;
+		        transition: opacity 0.7s linear;
+		}
+		
+	.leaflet-popup-tip-container {
+		margin: 0 auto;
+		width: 400px;
+		height: 20px;
+		position: relative;
+		overflow: hidden;
+		}
+		
+	.leaflet-popup-content-wrapper {
+		background-color: #fff;
+		height: 420px;
+		overflow: auto;
+	}	
+	
+	.leaflet-popup-content {
+	padding-left: 5px;
+	
+	}	
+	
+	.leaflet-popup-content .date{
+		text-align: center;
+		font-size: 18px;
+		color: #000;
+		opacity: 0.9;
+		  text-shadow:
+		   -1px -1px 0 #FFF,  
+		    1px -1px 0 #FFF,
+		    -1px 1px 0 #FFF,
+		     1px 1px 0 #FFF; 
+	}
+	
+	.leaflet-popup-content .live{
+		color: #fffef2;
+		
+	}	
+	
+	.leaflet-popup-content .mappix{
+		width: 350px;
+	}
+	
+	.leaflet-popup-content .notlive {
+		width: 350px;
+	}
+	
+	.leaflet-label {
+	background: #a7c7dc; /* Old browsers */
+background: -moz-linear-gradient(top,  #a7c7dc 0%, #85b2d3 100%); /* FF3.6+ */
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#a7c7dc), color-stop(100%,#85b2d3)); /* Chrome,Safari4+ */
+background: -webkit-linear-gradient(top,  #a7c7dc 0%,#85b2d3 100%); /* Chrome10+,Safari5.1+ */
+background: -o-linear-gradient(top,  #a7c7dc 0%,#85b2d3 100%); /* Opera 11.10+ */
+background: -ms-linear-gradient(top,  #a7c7dc 0%,#85b2d3 100%); /* IE10+ */
+background: linear-gradient(to bottom,  #a7c7dc 0%,#85b2d3 100%); /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#a7c7dc', endColorstr='#85b2d3',GradientType=0 ); /* IE6-9 */
+
+	color: #000;
+	border-radius:10px;
+	width: 100px;
+	height: 30px;
+	text-align: center;
+	padding-top:13%;
+	font-weight: 400;
+	}
